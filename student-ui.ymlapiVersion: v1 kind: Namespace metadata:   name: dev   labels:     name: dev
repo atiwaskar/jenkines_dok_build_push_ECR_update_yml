@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: dev
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-deployment
+  namespace: dev
+  labels:
+    app: student
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: student
+  template:
+    metadata:
+      labels:
+        app: student
+    spec:
+      containers:
+      - name: student
+        image: <ecr uri student_docker_image >
+        ports:
+          - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-srv
+  namespace: dev
+spec:
+  type: ClusterIP
+  selector:
+    app: student
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
