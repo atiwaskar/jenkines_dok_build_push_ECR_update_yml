@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: student
-        image: <ecr uri student_docker_image >
+        image: 339712867708.dkr.ecr.ap-south-1.amazonaws.com/project_1:latest
         ports:
           - containerPort: 8080
 ---
